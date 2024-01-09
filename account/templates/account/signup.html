@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="flex lg:justify-between gap-8 min-h-[75vh] justify-center ">
+    <div class="hidden lg:flex flex-shrink-0 flex-1 bg-emerald-700 p-8 max-w-5xl justify-center items-center flex-col rounded-2xl shadow-xl">
+        <p class="text-white font-bold text-5xl">dotPM</p>
+        <p class="text-white font-semibold text-2xl">est. 2023</p>
+    </div>
+    <div class="max-w-2xl w-full bg-white border border-neutral-300 py-8 rounded-xl shadow-xl">
+        <h1 class="text-2xl text-black text-center font-bold">Create an account</h1>
+        <form action="" class="mt-6 px-8 space-y-4" method="post">
+            {% csrf_token %}
+                <div class="space-y-2">
+                    <label for="name" class="text-black font-medium ">Name</label> <br/>
+                    <input type="text" name="name" id="name" class="w-full py-4 px-4 border border-neutral-300 rounded-xl text-emerald-700 focus:border-none focus:outline focus:outline-2 outline-emerald-800">
+                </div>
+                <div class="space-y-2">
+                    <label for="email" class="text-black font-medium ">Email</label> <br/>
+                    <input type="email" name="email" id="email" class="w-full py-4 px-4 border border-neutral-300  rounded-xl text-emerald-700 focus:border-none focus:outline focus:outline-2 outline-emerald-800">
+                </div>
+                <div class="space-y-2">
+                    <label for="password1" class="text-black font-medium ">Password</label> <br/>
+                    <input type="password" name="password1" id="password1" class="w-full py-4 px-4 border border-neutral-300  rounded-xl text-emerald-700 focus:border-none focus:outline focus:outline-2 outline-emerald-800">
+                </div>
+                <div class="space-y-2">
+                    <label for="password2" class="text-black font-medium ">Repeat Password</label> <br/>
+                    <input type="password" name="password2" id="password2" class="w-full py-4 px-4 border border-neutral-300 rounded-xl text-emerald-700 focus:border-none focus:outline focus:outline-2 outline-emerald-800">
+                </div>
+                <div>
+                    <button class="py-4 px-8 border border-neutral-300 bg-emerald-800 text-white rounded-xl font-semibold hover:opacity-80">Sign Up</button>
+                </div>
+        </form>
+    </div>
+    
+</div>
+
+{% endblock content %}

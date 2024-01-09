@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+
+
+{% block content %}
+<div class=" min-h-[75vh] mx-auto space-y-20 max-w-2xl bg-white border border-neutral-300 p-8 rounded-xl shadow-xl">
+    <h1 class="text-3xl text-black text-center font-bold mt-6">Log In</h1>
+    <form action="." class="mt-6 px-8 space-y-4" method="post">
+        {% csrf_token %}
+        <div class="space-y-2">
+            <label for="email" class="text-black font-medium ">Email</label> <br/>
+            <input type="email" name="email" id="email" class="w-full py-4 px-4 border border-neutral-300  rounded-xl text-emerald-700 focus:border-none focus:outline focus:outline-2 outline-emerald-800">
+        </div>
+        <div class="space-y-2">
+            <label for="password" class="text-black font-medium ">Password</label> <br/>
+            <input type="password" name="password" id="password" class="w-full py-4 px-4 border border-neutral-300  rounded-xl text-emerald-700 focus:border-none focus:outline focus:outline-2 outline-emerald-800">
+        </div>
+        <div>
+            <button class="py-4 px-8 border border-neutral-300 bg-emerald-800 text-white rounded-xl font-semibold hover:bg-white hover:text-emerald-800 transition">Log In</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

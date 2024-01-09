@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="p-4">
+    <h1 class="text-2xl mb-6 font-semibold">Add To-do List</h1>
+    <hr>
+    <form action="." class="mt-6 space-y-6" method="post">
+        {% csrf_token %}
+        <div class="">
+            <label class="font-medium text-base">Name: </label> <br/>
+            <input type="text" name="name" id="" class="w-full py-6 px-6 bg-slate-400 rounded-lg text-white outline-none">
+        </div>
+        <div class="">
+            <label class="font-medium text-base">Description: </label> <br/>
+            <input type="text" name="description" id="" class="w-full py-6 px-6 bg-slate-400 rounded-lg text-white outline-none">
+        </div>
+        <div>
+            <button class="mt-2 py-4 px-8 bg-sky-600 text-white rounded-full font-bold hover:opacity-80 transition">Create</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

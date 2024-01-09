@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="p-4">
+    <h1 class="mb-6 text-3xl font-semibold">Edit To-do List</h1>
+
+    <form class="mt-6 space-y-4" method="post" action=".">
+        {% csrf_token %}
+
+        <div>
+            <label>Name</label><br>
+            <input name="name" value="{{ todolist.name }}" type="text" class="w-full py-6 px-6 bg-slate-400 rounded-lg text-white outline-none">
+        </div>
+
+        <div>
+            <label>Description</label><br>
+            <textarea name="description" class="w-full py-6 px-6 bg-slate-400 rounded-lg text-white outline-none" rows=10>{{ todolist.description }}</textarea>
+        </div>
+
+        <div>
+            <button class="mt-2 py-4 px-8 bg-sky-600 text-white rounded-full font-bold hover:opacity-80 transition">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

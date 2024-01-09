@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="min-h-[75vh] flex items-center justify-between p-8">
+  {% if not request.user.is_authenticated %}
+  <div class="max-w-2xl space-y-4">
+    <h1 class="lg:text-3xl text-4xl font-bold text-emerald-700">Streamlining Success, One Task at a Time – Your Ultimate Project Management Solution.</h1>
+    <a href="{% url 'account:signup'%}" class=""><h1 class="mt-4 w-fit py-4 px-8 border border-neutral-300 bg-emerald-800 text-white text-lg rounded-xl font-semibold hover:opacity-80">Sign Up</h1></a>
+  </div>
+  <div class="max-w-2xl w-full  grid-cols-3 gap-6 hidden lg:grid">
+    <div class="h-[200px] font-bold text-white text-2xl flex justify-center items-center col-span-2 rounded-xl bg-emerald-600 shadow-xl hover:scale-105 transition">
+     
+    </div>
+    <div class="h-[200px] font-bold text-white text-2xl flex justify-center items-center col-span-1 rounded-xl bg-sky-600 shadow-xl hover:scale-105 transition">
+      
+    </div>
+    <div class="h-[200px] font-bold text-white text-2xl flex justify-center items-center col-span-1 rounded-xl bg-amber-600 shadow-xl hover:scale-105 transition">
+      
+    </div>
+    <div class="h-[200px] font-bold text-white text-2xl flex justify-center items-center col-span-2 rounded-xl bg-slate-600 shadow-xl hover:scale-105 transition">
+      
+    </div>
+    
+  </div>
+  {% else %}
+  
+  {% endif %}
+
+</div>
+{% endblock content %}

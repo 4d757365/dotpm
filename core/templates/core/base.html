@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  </head>
+  
+  <body class="flex flex-col min-h-screen h-full">
+    <style>
+      * {
+        font-family: 'Roboto', sans-serif;
+      }
+    </style>
+    <nav class="py-6 px-8 bg-emerald-800 flex  items-center justify-between">
+      <h1 class="text-white text-3xl">
+        <a href="{% url 'core:index'%}">
+        <h1 class="text-3xl font-bold">dotPM</h1>
+        </a>
+      </h1>
+      <div class="space-x-4">
+        {% comment %} <a href="{% url 'core:about'%}" class="text-white">About</a> {% endcomment %}
+        {% if request.user.is_authenticated%}
+        <a href="{% url 'project:projects'%}" class="py-4 px-8 bg-emerald-600 text-white rounded-full hover:opacity-80 font-bold">Projects</a>
+        <a href="{% url 'account:logout'%}" class="py-4 px-8 bg-amber-600 text-white rounded-full hover:opacity-80 font-bold">Log Out</a>
+        {% else %}
+        <a href="{% url 'account:login'%}" class="py-4 px-8 bg-emerald-600 text-white rounded-full hover:opacity-80 font-bold">Log In</a>
+        <a href="{% url 'account:signup'%}" class="py-4 px-8 bg-sky-600 text-white rounded-full hover:opacity-80 font-bold">Sign Up</a>
+        {% endif %}
+        
+      </div>
+    </nav>
+    <main class="py-6 px-8 flex-grow">
+      {% block content %}{% endblock content %}
+    </main>
+    <footer class="py-8 px-8 bg-emerald-800 text-white text-center text-lg">
+      <p>Copyright &copy; 2023 - dotpm</p>
+    </footer>
+  </body>
+</html>
+
