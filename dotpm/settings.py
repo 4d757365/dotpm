@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+from dotenv import load_dotenv
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-wyet$=vk_(k(a_nff-=@wontq7(f7(!94hpgmme5!@f(ak2^)j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".vercel.app", "localhost"]
 
 AUTH_USER_MODEL = 'account.User'
 
@@ -42,7 +43,8 @@ INSTALLED_APPS = [
     "account",
     "project",
     "todolist",
-    "task"
+    "task",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -129,3 +131,27 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AWS Configuration
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+
+# Amazon S3 Configuration
+AWS_STORAGE_BUCKET_NAME = 'dotpmbucket-4d757365'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.us-west-2.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_FILE_OVERWRITE = False
+
+# Django > 4.2
+STORAGES = {
+
+    # Media file (image) management
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+
+    # CSS and JS file management
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+    },
+}

@@ -1,68 +1,113 @@
-{% extends "core/base.html" %}
-
-{% block content %}
+{% extends "core/base.html" %} {% block content %}
 <div class="p-4">
-    <h1 class="text-3xl mb-6 font-bold">{{project.name}}</h1>
-    <hr class="mb-4">
-    {% if project.description %}
-        <p class="mb-6"><span class="font-medium text-lg">Description:</span> <br> {{ project.description }}</p>
-        <p class="mb-6"><span class="font-medium text-lg">Created at:</span> <br> {{ project.created_at }}</p>
-    {% endif %}
-    <hr>
-    <a href="{% url 'todolist:add' project.id%}" class="mt-4 py-4 px-8 bg-sky-600 text-white inline-block rounded-full hover:opacity-80 transition">Create To-do List</a>
-    <a href="{% url 'project:edit' project.id%}" class="py-4 px-8 bg-emerald-600 text-white inline-block rounded-full hover:opacity-80 transition">Edit</a>        
-    <a href="{% url 'project:delete' project.id%}" class="py-4 px-8 bg-red-600 text-white inline-block rounded-full hover:opacity-80 transition">Delete</a>
-    <h2 class="mt-6 mb-4 text-2xl font-semibold">To-do Lists:</h2>
-    <hr>
-        <div class="mt-6 grid grid-cols-4 gap-4">
-            {% for todolist in project.todolists.all %}
-            <div class="p-8 bg-neutral-200 rounded-xl flex flex-col justify-between gap-2 shadow-lg">
-                <h3 class="text-xl font-medium">{{todolist.name}}</h3>
-                <p class="mt-2 text-sm text-neutral-500">{{todolist.description}}</p>   
-                <p class="mt-2 text-lg text-neutral-500 font-medium">Tasks: {{ todolist.tasks.all|length }}</p>
+  <h1 class="text-3xl mb-6 font-bold">{{project.name}}</h1>
+  <hr class="mb-4" />
+  {% if project.description %}
+  <p class="mb-6">
+    <span class="font-medium text-lg">Description:</span> <br />
+    {{ project.description }}
+  </p>
+  <p class="mb-6">
+    <span class="font-medium text-lg">Created at:</span> <br />
+    {{ project.created_at }}
+  </p>
+  {% endif %}
+  <hr />
+  <a
+    href="{% url 'todolist:add' project.id%}"
+    class="mt-4 py-4 px-8 bg-sky-600 text-white inline-block rounded-full hover:opacity-80 transition"
+    >Create To-do List</a
+  >
+  <a
+    href="{% url 'project:edit_project' project.id%}"
+    class="py-4 px-8 bg-emerald-600 text-white inline-block rounded-full hover:opacity-80 transition"
+    >Edit</a
+  >
+  <a
+    href="{% url 'project:delete_project' project.id%}"
+    class="py-4 px-8 bg-red-600 text-white inline-block rounded-full hover:opacity-80 transition"
+    >Delete</a
+  >
+  <h2 class="mt-6 mb-4 text-2xl font-semibold">To-do Lists:</h2>
+  <hr />
+  <div class="mt-6 grid grid-cols-4 gap-4">
+    {% for todolist in project.todolists.all %}
+    <div
+      class="p-8 bg-neutral-200 rounded-xl flex flex-col justify-between gap-2 shadow-lg"
+    >
+      <h3 class="text-xl font-medium">{{todolist.name}}</h3>
+      <p class="mt-2 text-sm text-neutral-500">{{todolist.description}}</p>
+      <p class="mt-2 text-lg text-neutral-500 font-medium">
+        Tasks: {{ todolist.tasks.all|length }}
+      </p>
 
-                <div class="flex gap-4 content-end justify-end w-full">
-                    <a href="{% url 'todolist:todolist' project.id todolist.id%}" class="py-2 px-6 hover:opacity-80 transition bg-emerald-600 text-white rounded-full">View</a>
-                    <a href="{% url 'todolist:delete' project.id todolist.id%}" class="py-2 px-6 hover:opacity-80 transition bg-red-600 text-white rounded-full">Delete</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    {% if not project.todolists.all %}
-    <p class="text-neutral-600 text-lg italic text-center">There is no to-do list.</p>
-    {% endif %}
-    <h2 class="mt-6 mb-4 text-2xl font-semibold">Files:</h2>
-    <hr>
-
-    <div class="mt-6 grid grid-cols-4 gap-4">
-        {% for projectfile in project.files.all %}
-        <div class="py-6 px-6 bg-neutral-200 mb-6 rounded-xl shadow-sm">
-            <h3 class="text-xl font-medium">{{projectfile.name}}</h3>
-            <a href="{{ projectfile.attachment.url }}" class="text-base text-slate-600">
-                View File
-            </a>
-            |
-            <a href="{% url 'project:delete_file' project.id projectfile.id%}" class="text-base text-slate-600">
-                Delete File
-            </a>
-        </div>
-        {% endfor %}
+      <div class="flex gap-4 content-end justify-end w-full">
+        <a
+          href="{% url 'todolist:todolist' project.id todolist.id%}"
+          class="py-2 px-6 hover:opacity-80 transition bg-emerald-600 text-white rounded-full"
+          >View</a
+        >
+        <a
+          href="{% url 'todolist:delete' project.id todolist.id%}"
+          class="py-2 px-6 hover:opacity-80 transition bg-red-600 text-white rounded-full"
+          >Delete</a
+        >
+      </div>
     </div>
-    <a href="{% url 'project:upload_file' project.id%}" class="py-4 px-8 bg-slate-500 text-white inline-block rounded-full hover:opacity-80 transition">Upload File</a>
+    {% endfor %}
+  </div>
+  {% if not project.todolists.all %}
+  <p class="text-neutral-600 text-lg italic text-center">
+    There is no to-do list.
+  </p>
+  {% endif %}
+  <h2 class="mt-6 mb-4 text-2xl font-semibold">Files:</h2>
+  <hr />
 
-    <h2 class="mt-6 mb-4 text-2xl font-semibold">Notes:</h2>
-    <hr>
-    <div class="mt-6 grid grid-cols-4 gap-4">
-        {% for note in project.notes.all %}
-        <a href="{% url 'project:note_detail' project.id note.id%}">
-        <div class="py-6 px-6 bg-neutral-200 rounded-xl mb-6">
-            <h3 class="text-xl font-medium">{{note.name}}</h3>
-            <p class="mt-2 text-sm text-neutral-500">{{note.body |truncatechars:50}}</p>
-        </div>
-        </a>
-        {% endfor %}
+  <div class="mt-6 grid grid-cols-4 gap-4">
+    {% for projectfile in project.files.all %}
+    <div class="py-6 px-6 bg-neutral-200 mb-6 rounded-xl shadow-sm">
+      <h3 class="text-xl font-medium">{{projectfile.name}}</h3>
+      <a
+        href="{{ projectfile.attachment.url }}"
+        class="text-base text-slate-600"
+      >
+        View File
+      </a>
+      |
+      <a
+        href="{% url 'project:delete_file' project.id projectfile.id%}"
+        class="text-base text-slate-600"
+      >
+        Delete File
+      </a>
     </div>
-    <a href="{% url 'project:add_note' project.id%}" class="py-4 px-8 bg-amber-500 text-white inline-block rounded-full hover:opacity-80 transition">Add Note</a>
+    {% endfor %}
+  </div>
+  <a
+    href="{% url 'project:upload_file' project.id%}"
+    class="py-4 px-8 bg-slate-500 text-white inline-block rounded-full hover:opacity-80 transition"
+    >Upload File</a
+  >
 
+  <h2 class="mt-6 mb-4 text-2xl font-semibold">Notes:</h2>
+  <hr />
+  <div class="mt-6 grid grid-cols-4 gap-4">
+    {% for note in project.notes.all %}
+    <a href="{% url 'project:note' project.id note.id%}">
+      <div class="py-6 px-6 bg-neutral-200 rounded-xl mb-6">
+        <h3 class="text-xl font-medium">{{note.name}}</h3>
+        <p class="mt-2 text-sm text-neutral-500">
+          {{note.body |truncatechars:50}}
+        </p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  <a
+    href="{% url 'project:add_note' project.id%}"
+    class="py-4 px-8 bg-amber-500 text-white inline-block rounded-full hover:opacity-80 transition"
+    >Add Note</a
+  >
 </div>
 {% endblock content %}

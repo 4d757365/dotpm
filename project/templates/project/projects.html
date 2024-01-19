@@ -1,24 +1,36 @@
-{% extends "core/base.html" %}
-
+{% extends "core/base.html" %} 
 {% block content %}
 <div class="p-4 h-full">
-    <h1 class="text-3xl mb-6 font-bold text-center">Projects</h1>
-    <hr>
-        <a href="{% url 'project:add' %}" class="mt-4 py-4 px-8 bg-sky-600 text-white inline-block rounded-full hover:opacity-80 transition font-semibold">Add project <span class="ml-[1px] text-lg">+</span></a>
-        {% if not projects %}
-        <p class="italic text-neutral-600 text-center">No projects available.</p>
-        {% endif %}
-        <div class="mt-6 grid grid-cols-4 gap-4">
-            {% for project in projects %}
-            <a href="{% url 'project:project' project.id %}">
-            <div class="py-6 px-6 bg-slate-200 rounded-xl shadow-lg hover:opacity-80 transition">
-                <h2 class="text-xl font-bold">{{project.name}}</h2>
-                <p class="mt-2 text-sm text-slate-600 font-medium">{{project.created_at}}</p>
-                <p class="mt-2 text-base text-slate-600 font-medium">{{project.description}}</p>
-                <p class="mt-2 text-base text-slate-600 font-medium">To-do List: {{project.todolists.all|length}}</p>
-            </div>
-            </a>
-            {% endfor %}
-        </div>
+  <h1 class="text-3xl mb-6 font-bold text-center">Projects</h1>
+  <hr />
+  <a
+  href={% url 'project:add_project' %}
+
+    class="mt-4 py-4 px-8 bg-sky-600 text-white inline-block rounded-full hover:opacity-80 transition font-semibold"
+    >Add project <span class="ml-[1px] text-lg">+</span></a
+  >
+  {% if not projects %}
+  <p class="italic text-neutral-600 text-center">No projects available.</p>
+  {% endif %}
+  <div class="mt-6 grid grid-cols-4 gap-4">
+    {% for project in projects %}
+    <a href="{% url 'project:project' project.id %}">
+      <div
+        class="py-6 px-6 bg-slate-200 rounded-xl shadow-lg hover:opacity-80 transition"
+      >
+        <h2 class="text-xl font-bold">{{project.name}}</h2>
+        <p class="mt-2 text-sm text-slate-600 font-medium">
+          {{project.created_at}}
+        </p>
+        <p class="mt-2 text-base text-slate-600 font-medium">
+          {{project.description}}
+        </p>
+        <p class="mt-2 text-base text-slate-600 font-medium">
+          To-do List: {{project.todolists.all|length}}
+        </p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock content %}

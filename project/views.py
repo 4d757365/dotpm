@@ -30,7 +30,8 @@ def add_project(request):
         description = request.POST.get('description', '')
 
         if name:
-            Project.objects.create(name=name, description=description, created_by=request.user)
+            Project.objects.create(
+                name=name, description=description, created_by=request.user)
 
             return redirect('/projects/')
         else:
@@ -53,7 +54,7 @@ def edit_project(request, pk):
             project.save()
 
             return redirect('/projects/')
-    
+
     return render(request, 'project/edit_project.html', {
         'project': project
     })
@@ -72,7 +73,8 @@ def delete_project(request, pk):
 
 @login_required(login_url="/login/")
 def upload_file(request, project_id):
-    project = Project.objects.filter(created_by=request.user).get(pk=project_id)
+    project = Project.objects.filter(
+        created_by=request.user).get(pk=project_id)
 
     if request.method == 'POST':
         form = ProjectFileForm(request.POST, request.FILES)
@@ -94,7 +96,8 @@ def upload_file(request, project_id):
 
 @login_required(login_url="/login/")
 def delete_file(request, project_id, pk):
-    project = Project.objects.filter(created_by=request.user).get(pk=project_id)
+    project = Project.objects.filter(
+        created_by=request.user).get(pk=project_id)
     projectfile = project.files.get(pk=pk)
     projectfile.delete()
 
@@ -106,7 +109,8 @@ def delete_file(request, project_id, pk):
 
 @login_required(login_url="/login/")
 def add_note(request, project_id):
-    project = Project.objects.filter(created_by=request.user).get(pk=project_id)
+    project = Project.objects.filter(
+        created_by=request.user).get(pk=project_id)
 
     if request.method == 'POST':
         name = request.POST.get('name', '')
@@ -128,7 +132,8 @@ def add_note(request, project_id):
 
 @login_required(login_url="/login/")
 def note(request, project_id, pk):
-    project = Project.objects.filter(created_by=request.user).get(pk=project_id)
+    project = Project.objects.filter(
+        created_by=request.user).get(pk=project_id)
     note = project.notes.get(pk=pk)
 
     return render(request, 'project/note.html', {
@@ -139,7 +144,8 @@ def note(request, project_id, pk):
 
 @login_required(login_url="/login/")
 def edit_note(request, project_id, pk):
-    project = Project.objects.filter(created_by=request.user).get(pk=project_id)
+    project = Project.objects.filter(
+        created_by=request.user).get(pk=project_id)
     note = project.notes.get(pk=pk)
 
     if request.method == 'POST':
@@ -161,7 +167,8 @@ def edit_note(request, project_id, pk):
 
 @login_required(login_url="/login/")
 def delete_note(request, project_id, pk):
-    project = Project.objects.filter(created_by=request.user).get(pk=project_id)
+    project = Project.objects.filter(
+        created_by=request.user).get(pk=project_id)
     note = project.notes.get(pk=pk)
     note.delete()
 
